@@ -389,26 +389,5 @@ public class Manager {
                 delegate.URLSession(session, downloadTask: downloadTask, didResumeAtOffset: fileOffset, expectedTotalBytes: expectedTotalBytes)
             }
         }
-
-        // MARK: - NSObject
-
-        public override func respondsToSelector(selector: Selector) -> Bool {
-            switch selector {
-            case "URLSession:didBecomeInvalidWithError:":
-                return (sessionDidBecomeInvalidWithError != nil)
-            case "URLSession:didReceiveChallenge:completionHandler:":
-                return (sessionDidReceiveChallenge != nil)
-            case "URLSessionDidFinishEventsForBackgroundURLSession:":
-                return (sessionDidFinishEventsForBackgroundURLSession != nil)
-            case "URLSession:task:willPerformHTTPRedirection:newRequest:completionHandler:":
-                return (taskWillPerformHTTPRedirection != nil)
-            case "URLSession:dataTask:didReceiveResponse:completionHandler:":
-                return (dataTaskDidReceiveResponse != nil)
-            case "URLSession:dataTask:willCacheResponse:completionHandler:":
-                return (dataTaskWillCacheResponse != nil)
-            default:
-                return self.dynamicType.instancesRespondToSelector(selector)
-            }
-        }
     }
 }
