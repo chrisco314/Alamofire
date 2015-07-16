@@ -266,6 +266,26 @@ public class MultipartFormData {
     }
 
     /**
+    Creates a body part from the data and appends it to the multipart form data object.
+    
+    The body part data will be encoded using the following format:
+    
+    - `Content-Disposition: form-data; name=#{name}` (HTTP Header)
+    - Encoded file data
+    - Multipart form boundary
+    
+    :param: headers The headers to encode into the `multipart-form` part.
+    :param: data The data to encode into the `multipart-form` part.
+    */
+    public func appendBodyPart(#headers:[String: String], data: NSData) {
+        
+        let bodyStream = NSInputStream(data: data)
+        let bodyContentLength = UInt64(data.length)
+        let bodyPart = BodyPart(headers: headers, bodyStream: bodyStream, bodyContentLength: bodyContentLength)
+        self.bodyParts.append(bodyPart)
+    }
+    
+    /**
         Creates a body part from the stream and appends it to the multipart form data object.
 
         The body part data will be encoded using the following format:
